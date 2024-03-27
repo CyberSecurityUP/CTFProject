@@ -56,56 +56,59 @@
   <div id="files" class="content-section" style="display:none;">
     <!-- Os arquivos serão listados aqui -->
   </div>
-  <div id="about" class="content-section" style="display:none;">
+  <div id="about" class="content-section">
     <!-- O conteúdo sobre será mostrado aqui -->
+    <p>Esta é a seção sobre. Você pode editar este texto como desejar.</p>
   </div>
 </div>
 
 <script>
+// Função para criar um elemento de link
+function createLinkElement(text, url) {
+  const element = document.createElement('a');
+  element.href = url;
+  element.textContent = text;
+  element.style.color = '#33ff33';
+  return element;
+}
+
+// Carrega e exibe os artigos
 document.getElementById('link-articles').addEventListener('click', function() {
   fetch('articles.json')
     .then(response => response.json())
     .then(articles => {
       const articlesContainer = document.getElementById('articles');
-      articlesContainer.innerHTML = ''; // Limpa conteúdo anterior
+      articlesContainer.innerHTML = '';
       articles.forEach(article => {
-        const articleElement = document.createElement('a');
-        articleElement.innerText = article.title;
-        articleElement.href = article.url;
-        articlesContainer.appendChild(articleElement);
+        articlesContainer.appendChild(createLinkElement(article.title, article.url));
       });
       articlesContainer.style.display = 'block'; // Mostra a seção de artigos
+      document.getElementById('files').style.display = 'none'; // Esconde a seção de arquivos
+      document.getElementById('about').style.display = 'none'; // Esconde a seção sobre
     });
-  // Esconde as outras seções
-  document.getElementById('files').style.display = 'none';
-  document.getElementById('about').style.display = 'none';
 });
 
+// Carrega e exibe os arquivos
 document.getElementById('link-files').addEventListener('click', function() {
   fetch('files.json')
     .then(response => response.json())
     .then(files => {
       const filesContainer = document.getElementById('files');
-      filesContainer.innerHTML = ''; // Limpa conteúdo anterior
+      filesContainer.innerHTML = '';
       files.forEach(file => {
-        const fileElement = document.createElement('a');
-        fileElement.innerText = file.name;
-        fileElement.href = file.url;
-        filesContainer.appendChild(fileElement);
+        filesContainer.appendChild(createLinkElement(file.name, file.url));
       });
       filesContainer.style.display = 'block'; // Mostra a seção de arquivos
+      document.getElementById('articles').style.display = 'none'; // Esconde a seção de artigos
+      document.getElementById('about').style.display = 'none'; // Esconde a seção sobre
     });
-  // Esconde as outras seções
-  document.getElementById('articles').style.display = 'none';
-  document.getElementById('about').style.display = 'none';
 });
 
+// Mostra a seção About
 document.getElementById('link-about').addEventListener('click', function() {
-  // Mostra a seção sobre
-  document.getElementById('about').style.display = 'block';
-  // Esconde as outras seções
-  document.getElementById('articles').style.display = 'none';
-  document.getElementById('files').style.display = 'none';
+  document.getElementById('about').style.display = 'block'; // Mostra a seção sobre
+  document.getElementById('articles').style.display = 'none'; // Esconde a seção de artigos
+  document.getElementById('files').style.display = 'none'; // Esconde a seção de arquivos
 });
 </script>
 
