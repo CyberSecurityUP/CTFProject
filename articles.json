@@ -1,0 +1,5 @@
+[
+  { "title": "Artigo 1", "url": "articles/artigo1.html" },
+  { "title": "Artigo 2", "url": "articles/artigo2.pdf" },
+  // ... outros artigos
+]
